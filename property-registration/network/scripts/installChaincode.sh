@@ -25,9 +25,11 @@ ORGS="registrar users"
 TIMEOUT=15
 
 if [ "$TYPE" = "basic" ]; then
-  CC_SRC_PATH="/opt/gopath/src/github.com/hyperledger/fabric/peer/chaincode/"
+  # CC_SRC_PATH="/opt/gopath/src/github.com/hyperledger/fabric/peer/chaincode/"
+  CC_SRC_PATH="${PWD}/chaincode/"
+
 else
-  CC_SRC_PATH="/opt/gopath/src/github.com/hyperledger/fabric/peer/chaincode-advanced/"
+  CC_SRC_PATH="${PWD}/chaincode-advanced/"
 fi
 
 echo "Channel name : "$CHANNEL_NAME

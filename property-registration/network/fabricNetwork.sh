@@ -1,7 +1,7 @@
 #!/bin/bash
 
-export PATH=${PWD}/bin:${PWD}:$PATH
-export FABRIC_CFG_PATH=${PWD}
+export PATH=${PWD}/../bin:${PWD}:$PATH
+export FABRIC_CFG_PATH=${PWD}/configtx
 export VERBOSE=false
 
 # Print the usage message
@@ -130,7 +130,7 @@ function networkUp() {
     generateChannelArtifacts
   fi
   # Start the docker containers using compose file
-  IMAGE_TAG=$IMAGETAG docker-compose -f "$COMPOSE_FILE" up -d 2>&1
+  IMAGE_TAG=$IMAGETAG docker compose -f "$COMPOSE_FILE" up -d 2>&1
   docker ps -a
   if [ $? -ne 0 ]; then
     echo "ERROR !!!! Unable to start network"
@@ -170,7 +170,7 @@ function installChaincode() {
 function networkDown() {
   # stop all containers
   # stop kafka and zookeeper containers in case we're running with kafka consensus-type
-  docker-compose -f "$COMPOSE_FILE" down --volumes --remove-orphans
+  docker compose -f "$COMPOSE_FILE" down --volumes --remove-orphans
 
   # Don't remove the generated artifacts -- note, the ledgers are always removed
   if [ "$MODE" != "restart" ]; then
